@@ -1,0 +1,200 @@
+html {
+  margin: 0;
+  line-height: 1.15;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+html *,
+html ::before,
+html ::after {
+  border-width: 0;
+  border-style: solid;
+  box-sizing: border-box;
+}
+html body {
+  margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+}
+html body main {
+  display: block;
+}
+html body p,
+html body table,
+html body blockquote,
+html body address,
+html body pre,
+html body iframe,
+html body form,
+html body figure,
+html body dl {
+  margin: 0;
+}
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6 {
+  margin: 0;
+  font-weight: inherit;
+  font-size: inherit;
+}
+html body ul,
+html body ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html body dt {
+  font-weight: bold;
+}
+html body dd {
+  margin-left: 0;
+}
+html body hr {
+  clear: both;
+  height: 0;
+  overflow: visible;
+  margin: 0;
+  border-top-width: 1px;
+  color: inherit;
+  box-sizing: content-box;
+}
+html body address {
+  font-style: inherit;
+}
+html body a {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+html body b,
+html body strong {
+  font-weight: bolder;
+}
+html body small {
+  font-size: 100%;
+}
+html body sub,
+html body sup {
+  position: relative;
+  line-height: 0;
+  vertical-align: baseline;
+  font-size: 75%;
+}
+html body sub {
+  bottom: -0.25em;
+}
+html body sup {
+  top: -0.5em;
+}
+html body svg,
+html body img,
+html body embed,
+html body object,
+html body iframe {
+  vertical-align: bottom;
+}
+html body button,
+html body input,
+html body optgroup,
+html body select,
+html body textarea {
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: inherit;
+  text-transform: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+}
+html body [type=checkbox] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+       appearance: checkbox;
+}
+html body [type=radio] {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+       appearance: radio;
+}
+html body button,
+html body [type=button],
+html body [type=reset],
+html body [type=submit] {
+  cursor: pointer;
+}
+html body button:disabled,
+html body [type=button]:disabled,
+html body [type=reset]:disabled,
+html body [type=submit]:disabled {
+  cursor: default;
+}
+html body :-moz-focusring {
+  outline: auto;
+}
+html body select:disabled {
+  opacity: inherit;
+}
+html body option {
+  padding: 0;
+}
+html body fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+html body progress {
+  vertical-align: baseline;
+}
+html body textarea {
+  overflow: auto;
+}
+html body [type=number]::-webkit-inner-spin-button,
+html body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+html body [type=search] {
+  outline-offset: -2px;
+}
+html body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+html body ::-webkit-file-upload-button {
+  font: inherit;
+  -webkit-appearance: button;
+}
+html body label[for] {
+  cursor: pointer;
+}
+html body details {
+  display: block;
+}
+html body summary {
+  display: list-item;
+}
+html body [contenteditable]:focus {
+  outline: auto;
+}
+html body table {
+  border-color: inherit;
+  border-collapse: collapse;
+}
+html body caption {
+  text-align: left;
+}
+html body td,
+html body th {
+  vertical-align: top;
+  padding: 0;
+}
+html body th {
+  font-weight: bold;
+  text-align: left;
+}/*# sourceMappingURL=destyle.css.map */

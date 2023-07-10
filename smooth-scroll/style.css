@@ -1,0 +1,50 @@
+.pageTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #fff;
+  height: 80px;
+  width: 80px;
+  color: #000;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 30px;
+}
+ul li {
+  list-style: none;
+}
+ul li a {
+  color: #000;
+  text-decoration: none;
+}
+
+.sec {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+}
+.sec.sec1 {
+  background: #b47676;
+}
+.sec.sec2 {
+  background: #76b479;
+}
+.sec.sec3 {
+  background: #7681b4;
+}/*# sourceMappingURL=style.css.map */

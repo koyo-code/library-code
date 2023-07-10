@@ -1,0 +1,22 @@
+section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+*[data-scroll=fade-up] {
+  transform: translateY(20px);
+  opacity: 0;
+}
+*.fade-up {
+  animation: fadeup 1.5s forwards;
+}
+@keyframes fadeup {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}/*# sourceMappingURL=style.css.map */

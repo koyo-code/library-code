@@ -1,0 +1,11 @@
+.tab-area .tab-btn-list {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.tab-area .tab-content__item {
+  display: none;
+}
+.tab-area .tab-content__item.is-active {
+  display: block;
+}/*# sourceMappingURL=style.css.map */

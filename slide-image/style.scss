@@ -1,0 +1,33 @@
+.slider-wrapper {
+  margin-bottom: 80px;
+    @keyframes infinity-scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+  .slider {
+    margin-top: 16px;
+    &__wrap {
+      display: flex;
+      overflow: hidden;
+      &__list {
+        display: flex;
+        list-style:none;
+        &.upper {
+          animation: infinity-scroll-left 46s infinite linear 0.5s both;
+        }
+        &--item {
+          width: 28.86vw;
+          max-width:433px;
+          margin-right: 15px;
+          img{
+            width:100%;
+          }
+        }
+      }
+    }
+  }
+}

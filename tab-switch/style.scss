@@ -1,0 +1,19 @@
+.tab-area {
+  .tab-btn-list {
+    display:flex;
+    list-style:none;
+    gap:20px;
+    &__item {
+      a {
+      }
+    }
+  }
+.tab-content {
+  &__item {
+    display: none;
+    &.is-active {
+      display: block;
+    }
+  }
+}
+}
