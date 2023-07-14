@@ -1,0 +1,17 @@
+@charset "UTF-8";
+div[id^=block] {
+  /* セレクタ名の前方一致 */
+  background-color: #ddd;
+}
+
+p[class$=txt] {
+  /* セレクタ名の後方一致 */
+  margin-left: 20px;
+  color: #f00;
+}
+
+div[id*=About] {
+  /* セレクタ名の部分一致 */
+  margin: 10px;
+  border: 1px solid #f90;
+}/*# sourceMappingURL=style.css.map */
