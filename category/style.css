@@ -1,0 +1,29 @@
+body {
+  padding-top: 100px;
+}
+body .category-area__btn-list {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+body .category-area__btn-list--item {
+  width: 100px;
+  height: 30px;
+  background: #ccc;
+}
+body .category-area__detail-list {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+body .category-area__detail-list--item {
+  width: 300px;
+  height: 300px;
+  background: #ccc;
+}
+body .category-area__detail-list--item a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */
