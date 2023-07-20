@@ -1,6 +1,37 @@
 body {
   padding-top: 100px;
 }
+body .category-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+body .category-area .all {
+  background: #ccc;
+}
+body .category-area .red {
+  background: #cc0000;
+}
+body .category-area .blue {
+  background: #0000cc;
+}
+body .category-area .green {
+  background: #00cc00;
+}
+body .category-area--btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 60px;
+  background: #000;
+  color: #fff;
+  margin: 30px auto 0;
+  display: none;
+}
+body .category-area--btn.is-active {
+  display: flex;
+}
 body .category-area__btn-list {
   display: flex;
   justify-content: center;
@@ -10,19 +41,32 @@ body .category-area__btn-list {
 body .category-area__btn-list--item {
   width: 100px;
   height: 30px;
-  background: #ccc;
+}
+body .category-area__btn-list--item a {
+  color: #fff;
+  display: block;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 body .category-area__detail-list {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 15px;
 }
 body .category-area__detail-list--item {
-  width: 300px;
+  width: 390px;
   height: 300px;
-  background: #ccc;
+  display: none;
+}
+body .category-area__detail-list--item.is-active {
+  display: block;
 }
 body .category-area__detail-list--item a {
+  color: #fff;
   display: block;
   height: 100%;
   width: 100%;
