@@ -229,6 +229,9 @@ class Gallery {
 }
 
 new Gallery({
+  toggleClass: 'is-active',
+  btns: 'category-area__btn-list--item',
+  items: 'category-area__detail-list--item',
   more: {
     appear: 6,
     add: 6,
@@ -239,7 +242,4 @@ new Gallery({
       add: 3,
     },
   },
-  toggleClass: 'is-active',
-  btns: 'category-area__btn-list--item',
-  items: 'category-area__detail-list--item',
 });
