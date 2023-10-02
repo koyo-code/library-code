@@ -5,7 +5,7 @@ class SmoothScroll {
     this.clickEls = document.querySelectorAll(`.${clickEls}`);
     header && (this.header = document.querySelector(`.${header}`));
     this.move = move;
-    if (which === "InpageLink") {
+    if (which === 'InpageLink') {
       this.clickEls.forEach((clickEl) => {
         if (this.header) {
           new InPageLink(clickEl, this.move, this.header);
@@ -14,22 +14,22 @@ class SmoothScroll {
         }
       });
     }
-    if (which === "ScrollTriggerInPageLink") {
+    if (which === 'ScrollTriggerInPageLink') {
       this.standardPosition = document.querySelector(`.${standardPosition}`);
       this.clickEls.forEach((clickEl, i) => {
         new ScrollTriggerInPageLink(this.standardPosition, clickEl, i, this.move);
       });
     }
-    if (which === "OutPageLink") {
+    if (which === 'OutPageLink') {
       if (this.header) {
         new OutPageLink(this.move, this.header);
       } else {
         new OutPageLink(this.move);
       }
     }
-    if (which === "PageTopLink") {
+    if (which === 'PageTopLink') {
       this.clickEls.forEach((clickEl) => {
-          new PageTopLink(clickEl,this.move);
+        new PageTopLink(clickEl, this.move);
       });
     }
   }
@@ -40,39 +40,47 @@ class OutPageLink {
     this.move = move;
     header && (this.header = header);
     this.urlHash = location.hash;
+
     if (this.urlHash) {
-      this.hashMove();
+      window.addEventListener('DOMContentLoaded', this.hashPre.bind(this));
+      window.addEventListener('load', this.hashMove.bind(this));
     }
   }
-  hashMove() {
+  hashPre() {
     setTimeout(() => {
-      gsap.to(window, { duration: 0, scrollTo: 0 });
+      gsap.to(window, { duration: 0, ease: this.move.ease, scrollTo: 0 });
     }, 0);
+  }
+  hashMove() {
     const scrollAmount = window.scrollY;
-    const target = document.getElementById(this.urlHash.replace("#", ""));
+    const target = document.getElementById(this.urlHash.replace('#', ''));
     const targetPosition = target.getBoundingClientRect().top;
     let movePosition = scrollAmount + targetPosition;
     if (this.header) {
       movePosition = movePosition - this.header.offsetHeight;
     }
+
     setTimeout(() => {
-      gsap.to(window, { duration: this.move.duration, ease: this.move.ease, scrollTo: movePosition });
+      gsap.to(window, {
+        duration: this.move.duration,
+        ease: this.move.ease,
+        scrollTo: movePosition,
+      });
     }, 100);
   }
 }
-
 class InPageLink {
   constructor(clickEl, move, header) {
     this.clickEl = clickEl;
     this.move = move;
     header && (this.header = header);
-    this.clickEl.addEventListener("click", this.toTarget.bind(this));
+    this.clickEl.addEventListener('click', this.toTarget.bind(this));
   }
   toTarget(event) {
     event.preventDefault();
     const scrollAmount = window.scrollY;
-    const targetId = this.clickEl.getAttribute("href");
-    const target = document.getElementById(targetId.replace("#", ""));
+    const targetId = this.clickEl.getAttribute('href');
+    const target = document.getElementById(targetId.replace('#', ''));
     const targetPosition = target.getBoundingClientRect().top;
     let movePosition = scrollAmount + targetPosition;
     if (this.header) {
@@ -88,10 +96,14 @@ class ScrollTriggerInPageLink {
     this.clickEl = clickEl;
     this.move = move;
     this.i = i;
-    this.clickEl.addEventListener("click", this.clickHandler.bind(this, this.i));
+    this.clickEl.addEventListener('click', this.clickHandler.bind(this, this.i));
   }
   clickHandler(i) {
-    gsap.to(window, { duration: this.move.duration, ease: this.move.ease, scrollTo: this.scrollInfo(i) });
+    gsap.to(window, {
+      duration: this.move.duration,
+      ease: this.move.ease,
+      scrollTo: this.scrollInfo(i),
+    });
   }
   scrollInfo(i) {
     const windowHeight = window.innerHeight;
@@ -101,42 +113,42 @@ class ScrollTriggerInPageLink {
     return targetPosition;
   }
 }
-class PageTopLink{
-  constructor(clickEl,move){
+class PageTopLink {
+  constructor(clickEl, move) {
     this.clickEl = clickEl;
-    this.move = move
-    this.clickEl.addEventListener("click",this.pageTop.bind(this))
+    this.move = move;
+    this.clickEl.addEventListener('click', this.pageTop.bind(this));
   }
-  pageTop(e){
+  pageTop(e) {
     e.preventDefault();
-    gsap.to(window, { duration: this.move.duration, ease:             this.move.ease, scrollTo: 0});
+    gsap.to(window, { duration: this.move.duration, ease: this.move.ease, scrollTo: 0 });
   }
 }
 
 new SmoothScroll({
-  which: "InpageLink",
-  clickEls: "moveToTarget",
-  header: "header",
+  which: 'InpageLink',
+  clickEls: 'moveToTarget',
+  header: 'header',
   move: {
     duration: 1,
-    ease: "power2.inOut",
+    ease: 'power2.inOut',
   },
 });
 
 new SmoothScroll({
-  which: "PageTopLink",
-  clickEls: "pageTop",
+  which: 'PageTopLink',
+  clickEls: 'pageTop',
   move: {
     duration: 2,
-    ease: "power4.inOut",
+    ease: 'power4.inOut',
   },
 });
 
 new SmoothScroll({
-  which: "OutPageLink",
-  header: "header",
+  which: 'OutPageLink',
+  header: 'header',
   move: {
     duration: 2,
-    ease: "power4.inOut",
+    ease: 'power4.inOut',
   },
 });

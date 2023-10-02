@@ -1,18 +1,28 @@
-.item{
-  width:300px;
-  height:60px;
-  margin-bottom:10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  &.item1{
-/*   左上から右下に */
-  background: linear-gradient(to bottom right, #FFF, #FFC778); 
+.item {
+  width: 300px;
+  height: 60px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.item1 {
+    /*   左上から右下に */
+    background: linear-gradient(to bottom right, #fff, #ffc778);
+  }
+  &.item2 {
+    /*  上から下に向かって　%指定ができる */
+    background: linear-gradient(to bottom, #fff, #ffc778 30%, #f89174);
+  }
 }
-&.item2{
-/*  上から下に向かって　%指定ができる */
-  background:
- linear-gradient(to bottom,#FFF,#FFC778 30%,#F89174); 
-;
-}
+
+.text-gradation {
+  font-size: 60px;
+  display: inline-block;
+  font-weight: bold;
+  // グラデーション
+  background: linear-gradient(90deg, #fff 0%, #06c89d 100%);
+  background: -webkit-linear-gradient(-220deg, #fff 0%, #06c89d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  // グラデーション
 }
