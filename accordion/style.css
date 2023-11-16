@@ -1,8 +1,4 @@
 @charset "UTF-8";
-:root {
-  --delay: 0;
-}
-
 .accordion {
   display: flex;
   justify-content: center;
@@ -43,14 +39,11 @@
   background: #ddaeae;
   overflow: hidden;
 }
-.accordion__item .answer :root {
-  --duration: 0;
-}
 .accordion__item .answer__inner {
   height: 0;
   margin: 0 auto;
   line-height: 2;
-  transition: margin var(--duration);
+  transition: margin 0.5s;
 }
 .accordion__item .answer__inner.is-active {
   margin: 40px auto;

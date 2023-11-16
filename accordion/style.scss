@@ -1,6 +1,3 @@
-:root {
-  --delay: 0;
-}
 .accordion {
   display: flex;
   justify-content: center;
@@ -36,9 +33,6 @@
     }
 
     .answer {
-      :root {
-        --duration: 0;
-      }
       display: flex;
       justify-content: center;
       align-items: center;
@@ -48,7 +42,7 @@
         height: 0;
         margin: 0 auto;
         line-height: 2;
-        transition: margin var(--duration);
+        transition: margin 0.5s;
         &.is-active {
           margin: 40px auto;
         }

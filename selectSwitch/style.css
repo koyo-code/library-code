@@ -1,0 +1,15 @@
+.target__inner {
+  height: 500px;
+  width: 500px;
+}
+.target__box {
+  position: relative;
+}
+.target__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 500px;
+  width: 500px;
+  background: #ccc;
+}/*# sourceMappingURL=style.css.map */

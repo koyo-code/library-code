@@ -1,65 +1,69 @@
 class ScrollAnimation {
-  constructor({ target, animationClass, division, sp }) {
-    sp && (this.sp = sp);
-    this.animationClass = animationClass;
-    this.division = division;
-    this.animations = document.querySelectorAll(`.${target}`);
-    window.addEventListener('load', this.init());
-    window.addEventListener('scroll', this.addClass.bind(this));
+  static init({ percent = 25, breakpoint = null } = {}) {
+    const initObj = new this({ percent, breakpoint });
+    document.querySelectorAll('[data-scroll]').forEach((targetEl) => {
+      initObj.elsData.push({ el: targetEl });
+    });
+    window.addEventListener('resize', initObj.main.bind(initObj));
+    window.addEventListener('scroll', initObj.main.bind(initObj));
+
+    return initObj;
   }
-  init() {
-    this.addClass();
+  constructor({ percent, breakpoint } = {}) {
+    this.scroll = {};
+    this.elsData = [];
+    this.breakpoint = breakpoint;
+    this.percent = percent;
+    window.addEventListener('load', this.main());
   }
-  addClass() {
-    const scrollAmount = window.scrollY;
-    const windowHeight = window.innerHeight;
-    let windowHeightDivision;
-    if (this.sp) {
-      if (this.sp.break < window.innerWidth) {
-        windowHeightDivision = windowHeight / this.division;
+  windowData() {
+    this.scroll.y = window.scrollY;
+    this.scroll.wH = window.innerHeight;
+    this.scroll.wW = window.innerWidth;
+    this.scroll.wHpercent = this.scroll.wH * (this.percent * 0.01);
+    if (this.breakpoint) {
+      this.scroll.wHPercentSp = this.scroll.wH * (this.breakpoint.percent * 0.01);
+    }
+  }
+
+  setElData(elData) {
+    elData.pos = elData.el.getBoundingClientRect().top + this.scroll.y;
+    elData.animation = elData.el.dataset.scroll;
+    elData.delay = elData.el.dataset.delay ?? (elData.delay = 0);
+    elData.spDelay = elData.el.dataset.spdelay ?? (elData.spDelay = 0);
+  }
+
+  addClass(elData) {
+    if (this.breakpoint) {
+      if (this.scroll.wW >= this.breakpoint.max) {
+        if (this.scroll.y >= elData.pos - this.scroll.wH + this.scroll.wHpercent) {
+          setTimeout(() => {
+            elData.el.classList.add(elData.animation);
+          }, elData.delay);
+        }
       } else {
-        windowHeightDivision = windowHeight / this.sp.division;
+        if (this.scroll.y >= elData.pos - this.scroll.wH + this.scroll.wHPercentSp) {
+          setTimeout(() => {
+            elData.el.classList.add(elData.animation);
+          }, elData.spDelay);
+        }
       }
     } else {
-      windowHeightDivision = windowHeight / this.division;
-    }
-    this.animations.forEach((animation) => {
-      const animationPos = animation.getBoundingClientRect().top;
-      let delay = animation.dataset.delay;
-      let spDelay = animation.dataset.spdelay;
-      delay ?? (delay = 0);
-      spDelay ?? (spDelay = 0);
-
-      if (!spDelay) {
-        if (scrollAmount >= animationPos + scrollAmount - windowHeight + windowHeightDivision) {
-          setTimeout(() => {
-            animation.classList.add(this.animationClass);
-          }, delay);
-        }
-      } else {
-        if (window.innerWidth > 768) {
-          if (scrollAmount >= animationPos + scrollAmount - windowHeight + windowHeightDivision) {
-            setTimeout(() => {
-              animation.classList.add(this.animationClass);
-            }, delay);
-          }
-        } else {
-          if (scrollAmount >= animationPos + scrollAmount - windowHeight + windowHeightDivision) {
-            setTimeout(() => {
-              animation.classList.add(this.animationClass);
-            }, spDelay);
-          }
-        }
+      if (this.scroll.y >= elData.pos - this.scroll.wH + this.scroll.wHpercent) {
+        setTimeout(() => {
+          elData.el.classList.add(elData.animation);
+        }, elData.delay);
       }
+    }
+  }
+
+  main() {
+    this.windowData();
+    this.elsData.forEach((elData, i) => {
+      this.setElData(elData, i);
+      this.addClass(elData, i);
     });
   }
 }
-new ScrollAnimation({
-  target: 'scroll-target',
-  animationClass: 'fade-up',
-  division: 4,
-  sp: {
-    break: 768,
-    division: 6,
-  },
-});
+
+new ScrollAnimation();

@@ -1,0 +1,33 @@
+.btn {
+  --width: 300px;
+  --height: 80px;
+  display: block;
+  margin-top: 50px;
+  margin-left: 50px;
+  overflow: hidden;
+  width: var(--width);
+  height: var(--height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid #000 1px;
+  transition: all 0.3s;
+  position: relative;
+}
+.btn span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background-color: red;
+  height: 0;
+  width: 0;
+  top: 0;
+  z-index: -1;
+  left: 0;
+  transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+  transform: translate(-50%, -50%);
+}
+.btn:hover span {
+  height: 700px;
+  width: 700px;
+}/*# sourceMappingURL=style.css.map */

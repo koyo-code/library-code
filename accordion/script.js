@@ -5,7 +5,6 @@ class Accordion {
     this.autoClose = autoClose;
     this.toggleClass = toggleClass;
     this.accordionItems = document.querySelectorAll(`.${items}`);
-    window.addEventListener('load', this.init(this.duration));
     this.accordionItems.forEach((_, index) => {
       this.stateBox.push(false);
       this.accordionItems[index].children[0].addEventListener(
@@ -13,9 +12,6 @@ class Accordion {
         this.clickEvent.bind(this, index)
       );
     });
-  }
-  init(duration) {
-    document.querySelector(':root').style.setProperty('--duration', `${duration}s`);
   }
   clickEvent(index) {
     if (this.autoClose) {
@@ -49,9 +45,12 @@ class Accordion {
   }
 }
 
+// cssでセットするdurationとjsのdurationの値はそろえて使う
+// 初見だと分かりづらいので変数にしていません。
+
 new Accordion({
   items: 'accordion__item',
-  autoClose: false,
+  autoClose: true,
   duration: 0.5,
   toggleClass: 'is-active',
 });
