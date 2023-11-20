@@ -1,19 +1,54 @@
-.tab-area {
-  .tab-btn-list {
-    display:flex;
-    list-style:none;
-    gap:20px;
-    &__item {
-      a {
-      }
-    }
+.tab {
+  &__btns {
+    display: flex;
   }
-.tab-content {
-  &__item {
-    display: none;
+  &__btn {
+    ///ほぼ必須CSS
+    cursor: pointer;
+    ///
+    width: calc(100% / 3);
+    height: 100px;
+    opacity: 0.5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:nth-child(1) {
+      background: #ccc;
+    }
+    &:nth-child(2) {
+      background: #9ec3db;
+    }
+    &:nth-child(3) {
+      background: #dd9090;
+    }
     &.is-active {
-      display: block;
+      opacity: 1;
     }
   }
-}
+  &__contents {
+  }
+  &__content {
+    ///必須CSS
+    display: none;
+    ///
+    padding: 30px;
+    line-height: 1.5;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    &:nth-child(1) {
+      background: #ccc;
+    }
+    &:nth-child(2) {
+      background: #9ec3db;
+    }
+    &:nth-child(3) {
+      background: #dd9090;
+    }
+    &.is-active {
+      ///必須CSS
+      display: block;
+      ///
+    }
+  }
 }

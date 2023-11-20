@@ -7,20 +7,27 @@
     <link rel="stylesheet" href="../destyle.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
-    <a href="#" class="pageTop" id="pageTop">▲</a>
+  <body id="body">
+    <a href="#body" class="pageTop" id="pageTop" data-smooth="anchor">▲</a>
     <header class="header">
       <nav>
         <ul>
-          <li><a class="moveToTarget" href="#sec1">toSection1</a></li>
-          <li><a class="moveToTarget" href="#sec2">toSection2</a></li>
-          <li><a class="moveToTarget" href="#sec3">toSection3</a></li>
+          <li>
+            <a class="moveToTarget" href="#sec1" data-smooth="anchor">toSection1</a>
+          </li>
+          <li>
+            <a class="moveToTarget" href="#sec2" data-smooth="anchor">toSection2</a>
+          </li>
+          <li>
+            <a class="moveToTarget" href="#sec3" data-smooth="anchor">toSection3</a>
+          </li>
         </ul>
       </nav>
     </header>
     <section id="sec1" class="sec sec1">section1</section>
     <section id="sec2" class="sec sec2">section2</section>
     <section id="sec3" class="sec sec3">section3</section>
+
     <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
     <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
     <script src="./script.js"></script>

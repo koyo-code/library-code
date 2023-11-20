@@ -1,154 +1,46 @@
 gsap.registerPlugin(ScrollToPlugin);
 
 class SmoothScroll {
-  constructor({ which, clickEls, move, standardPosition, header }) {
-    this.clickEls = document.querySelectorAll(`.${clickEls}`);
-    header && (this.header = document.querySelector(`.${header}`));
-    this.move = move;
-    if (which === 'InpageLink') {
-      this.clickEls.forEach((clickEl) => {
-        if (this.header) {
-          new InPageLink(clickEl, this.move, this.header);
-        } else {
-          new InPageLink(clickEl, this.move);
-        }
-      });
-    }
-    if (which === 'ScrollTriggerInPageLink') {
-      this.standardPosition = document.querySelector(`.${standardPosition}`);
-      this.clickEls.forEach((clickEl, i) => {
-        new ScrollTriggerInPageLink(this.standardPosition, clickEl, i, this.move);
-      });
-    }
-    if (which === 'OutPageLink') {
-      if (this.header) {
-        new OutPageLink(this.move, this.header);
-      } else {
-        new OutPageLink(this.move);
+  static init({ data = 'smooth', duration = 0.5, outAnchor = true, header = null } = {}) {
+    const initObj = new this({ data, duration, header, outAnchor });
+    if (outAnchor) window.addEventListener('load', initObj.outAnchorLink.bind(initObj));
+  }
+  constructor({ data, duration, header }) {
+    this.header = document.querySelector(header);
+    this.duration = duration;
+    this.clickEls = document.querySelectorAll(`[data-${data}]`);
+    this.clickEls.forEach((clickEl) => {
+      const dataset = clickEl.dataset[data];
+      if (dataset === 'anchor') {
+        clickEl.addEventListener('click', this.anchorLink.bind(this, clickEl));
       }
-    }
-    if (which === 'PageTopLink') {
-      this.clickEls.forEach((clickEl) => {
-        new PageTopLink(clickEl, this.move);
-      });
-    }
-  }
-}
-
-class OutPageLink {
-  constructor(move, header) {
-    this.move = move;
-    header && (this.header = header);
-    this.urlHash = location.hash;
-
-    if (this.urlHash) {
-      window.addEventListener('DOMContentLoaded', this.hashPre.bind(this));
-      window.addEventListener('load', this.hashMove.bind(this));
-    }
-  }
-  hashPre() {
-    setTimeout(() => {
-      gsap.to(window, { duration: 0, ease: this.move.ease, scrollTo: 0 });
-    }, 0);
-  }
-  hashMove() {
-    const scrollAmount = window.scrollY;
-    const target = document.getElementById(this.urlHash.replace('#', ''));
-    const targetPosition = target.getBoundingClientRect().top;
-    let movePosition = scrollAmount + targetPosition;
-    if (this.header) {
-      movePosition = movePosition - this.header.offsetHeight;
-    }
-
-    setTimeout(() => {
-      gsap.to(window, {
-        duration: this.move.duration,
-        ease: this.move.ease,
-        scrollTo: movePosition,
-      });
-    }, 100);
-  }
-}
-class InPageLink {
-  constructor(clickEl, move, header) {
-    this.clickEl = clickEl;
-    this.move = move;
-    header && (this.header = header);
-    this.clickEl.addEventListener('click', this.toTarget.bind(this));
-  }
-  toTarget(event) {
-    event.preventDefault();
-    const scrollAmount = window.scrollY;
-    const targetId = this.clickEl.getAttribute('href');
-    const target = document.getElementById(targetId.replace('#', ''));
-    const targetPosition = target.getBoundingClientRect().top;
-    let movePosition = scrollAmount + targetPosition;
-    if (this.header) {
-      movePosition = movePosition - this.header.offsetHeight;
-    }
-    gsap.to(window, { duration: this.move.duration, ease: this.move.ease, scrollTo: movePosition });
-  }
-}
-
-class ScrollTriggerInPageLink {
-  constructor(standardPosition, clickEl, i, move) {
-    this.standardPosition = standardPosition;
-    this.clickEl = clickEl;
-    this.move = move;
-    this.i = i;
-    this.clickEl.addEventListener('click', this.clickHandler.bind(this, this.i));
-  }
-  clickHandler(i) {
-    gsap.to(window, {
-      duration: this.move.duration,
-      ease: this.move.ease,
-      scrollTo: this.scrollInfo(i),
     });
   }
-  scrollInfo(i) {
-    const windowHeight = window.innerHeight;
-    const scrollAmount = window.scrollY;
-    const itemPosition = this.standardPosition.getBoundingClientRect().top + windowHeight * i;
-    const targetPosition = scrollAmount + itemPosition;
-    return targetPosition;
+
+  movingAnimation(toEl) {
+    const animationData = { duration: this.duration, scrollTo: { y: toEl, offsetY: 0 } };
+    if (this.header !== null) {
+      const headerHeight = this.header.offsetHeight;
+      animationData.scrollTo.offsetY = headerHeight;
+    }
+    gsap.to(window, animationData);
   }
-}
-class PageTopLink {
-  constructor(clickEl, move) {
-    this.clickEl = clickEl;
-    this.move = move;
-    this.clickEl.addEventListener('click', this.pageTop.bind(this));
-  }
-  pageTop(e) {
+
+  anchorLink(clickEl, e) {
     e.preventDefault();
-    gsap.to(window, { duration: this.move.duration, ease: this.move.ease, scrollTo: 0 });
+    const getAttr = clickEl.getAttribute('href');
+    const toEl = document.querySelector(getAttr);
+    this.movingAnimation(toEl);
+  }
+
+  outAnchorLink() {
+    const hash = location.hash;
+    if (hash) {
+      gsap.to(window, { duration: 0, scrollTo: 0 });
+      const toEl = document.querySelector(hash);
+      this.movingAnimation(toEl);
+    }
   }
 }
 
-new SmoothScroll({
-  which: 'InpageLink',
-  clickEls: 'moveToTarget',
-  header: 'header',
-  move: {
-    duration: 1,
-    ease: 'power2.inOut',
-  },
-});
-
-new SmoothScroll({
-  which: 'PageTopLink',
-  clickEls: 'pageTop',
-  move: {
-    duration: 2,
-    ease: 'power4.inOut',
-  },
-});
-
-new SmoothScroll({
-  which: 'OutPageLink',
-  header: 'header',
-  move: {
-    duration: 2,
-    ease: 'power4.inOut',
-  },
-});
+SmoothScroll.init({ header: '.header' });
