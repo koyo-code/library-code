@@ -1,12 +1,12 @@
 class ScrollAnimation {
-  static init({ percent = 25, breakpoint = null } = {}) {
-    const initObj = new this({ percent, breakpoint });
-    document.querySelectorAll('[data-scroll]').forEach((targetEl) => {
+  static init({ percent = 25, breakpoint = null, data = 'scroll' } = {}) {
+    const initObj = new this({ percent, breakpoint, data });
+    document.querySelectorAll(`[data-${data}]`).forEach((targetEl) => {
       initObj.elsData.push({ el: targetEl });
     });
+    window.addEventListener('load', initObj.main());
     window.addEventListener('resize', initObj.main.bind(initObj));
     window.addEventListener('scroll', initObj.main.bind(initObj));
-
     return initObj;
   }
   constructor({ percent, breakpoint } = {}) {
@@ -14,7 +14,6 @@ class ScrollAnimation {
     this.elsData = [];
     this.breakpoint = breakpoint;
     this.percent = percent;
-    window.addEventListener('load', this.main());
   }
   windowData() {
     this.scroll.y = window.scrollY;

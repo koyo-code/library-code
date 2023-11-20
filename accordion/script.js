@@ -1,56 +1,58 @@
 class Accordion {
-  constructor({ items, autoClose, duration, toggleClass }) {
-    this.stateBox = [];
-    this.duration = duration;
-    this.autoClose = autoClose;
+  static init({
+    data = 'accordion',
+    toggleClass = 'is-open',
+    duration = 0.3,
+    ease = 'none',
+    autoClose = false,
+  } = {}) {
+    new this({ data, toggleClass, ease, duration, autoClose });
+  }
+  constructor({ data, toggleClass, ease, duration, autoClose }) {
+    this.els = document.querySelectorAll(`[data-${data}]`);
     this.toggleClass = toggleClass;
-    this.accordionItems = document.querySelectorAll(`.${items}`);
-    this.accordionItems.forEach((_, index) => {
-      this.stateBox.push(false);
-      this.accordionItems[index].children[0].addEventListener(
-        'click',
-        this.clickEvent.bind(this, index)
-      );
+    this.ease = ease;
+    this.autoClose = autoClose;
+    this.duration = duration;
+    this.els.forEach((el) => {
+      el.children[0].addEventListener('click', this.main.bind(this, el));
     });
   }
-  clickEvent(index) {
-    if (this.autoClose) {
-      this.accordionItems.forEach((_, i) => {
-        if (i !== index) {
-          this.accordionItems[i].children[0].classList.remove(this.toggleClass);
-          this.accordionItems[i].children[1].children[0].classList.remove(this.toggleClass);
-          this.stateBox[i] = false;
-        }
-        gsap.to(this.accordionItems[i].children[1].children[0], {
-          height: this.stateBox[i] ? 'auto' : 0,
-          duration: this.duration,
-        });
-      });
+
+  closingMovement(el) {
+    for (let i = 0; i < this.els.length; i++) {
+      if (this.els[i] !== el) {
+        this.closeMovingAnimation(this.els[i]);
+        this.els[i].children[0].classList.remove(this.toggleClass);
+        this.els[i].children[1].classList.remove(this.toggleClass);
+      }
     }
-    this.stateBox[index] = !this.stateBox[index];
-    this.animation(index);
   }
-  animation(index) {
-    if (this.stateBox[index]) {
-      this.accordionItems[index].children[0].classList.add(this.toggleClass);
-      this.accordionItems[index].children[1].children[0].classList.add(this.toggleClass);
-    } else {
-      this.accordionItems[index].children[0].classList.remove(this.toggleClass);
-      this.accordionItems[index].children[1].children[0].classList.remove(this.toggleClass);
-    }
-    gsap.to(this.accordionItems[index].children[1].children[0], {
-      height: this.stateBox[index] ? 'auto' : 0,
+
+  closeMovingAnimation(el) {
+    gsap.to(el.children[1], {
+      height: 0,
       duration: this.duration,
+      ease: this.ease,
     });
+  }
+
+  movingAnimation(el) {
+    gsap.to(el.children[1], {
+      height: el.children[1].classList.contains(this.toggleClass) ? 0 : 'auto',
+      duration: this.duration,
+      ease: this.ease,
+    });
+  }
+
+  main(el) {
+    if (this.autoClose) {
+      this.closingMovement(el);
+    }
+    this.movingAnimation(el);
+    el.children[0].classList.toggle(this.toggleClass);
+    el.children[1].classList.toggle(this.toggleClass);
   }
 }
 
-// cssでセットするdurationとjsのdurationの値はそろえて使う
-// 初見だと分かりづらいので変数にしていません。
-
-new Accordion({
-  items: 'accordion__item',
-  autoClose: true,
-  duration: 0.5,
-  toggleClass: 'is-active',
-});
+Accordion.init();

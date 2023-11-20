@@ -1,52 +1,46 @@
 .accordion {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   &__item {
-    float: left;
-    width: 300px;
-    .question {
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50px;
-      background: #ccc;
-      position: relative;
+    width: 100%;
+  }
+  &__question {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background: #ccc;
+    position: relative;
+    &::after {
+      content: '▼';
+      position: absolute;
+      top: 50%;
+      translate: 0 -50%;
+      right: 10px;
+      width: 10px;
+      height: 10px;
+      font-size: 10px;
+      transition: all 0.3s;
+    }
+    &.is-open {
       &::after {
-        content: '↓';
-        position: absolute;
-        top: 50%;
-        translate: 0 -50%;
-        right: 10px;
-        width: 10px;
-        height: 10px;
-        font-size: 10px;
-        transition: all 0.3s;
-      }
-      &.is-active {
-        &::after {
-          rotate: 180deg;
-        }
+        rotate: 180deg;
       }
     }
-
-    .answer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ddaeae;
-      overflow: hidden;
-      &__inner {
-        height: 0;
-        margin: 0 auto;
-        line-height: 2;
-        transition: margin 0.5s;
-        &.is-active {
-          margin: 40px auto;
-        }
-      }
+  }
+  &__answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ddaeae;
+    ///必須CSS
+    overflow: hidden;
+    height: 0px;
+    ///
+    &-inner {
+      margin: 20px 20px;
+      line-height: 1.5;
     }
   }
 }
