@@ -14,19 +14,25 @@ class Accordion {
     this.ease = ease;
     this.autoClose = autoClose;
     this.duration = duration;
-    this.els.forEach((el) => {
-      el.children[0].addEventListener('click', this.main.bind(this, el));
+    this.els.forEach((_, i) => {
+      const childEls = [...this.els[i].children];
+      for (let _i = 0; _i < childEls.length; _i++) {
+        childEls[_i].children[0].addEventListener('click', this.main.bind(this, childEls[_i]));
+      }
     });
   }
 
   closingMovement(el) {
-    for (let i = 0; i < this.els.length; i++) {
-      if (this.els[i] !== el) {
-        this.closeMovingAnimation(this.els[i]);
-        this.els[i].children[0].classList.remove(this.toggleClass);
-        this.els[i].children[1].classList.remove(this.toggleClass);
+    this.els.forEach((_, i) => {
+      const childEls = [...this.els[i].children];
+      for (let _i = 0; _i < childEls.length; _i++) {
+        if (childEls[_i] !== el) {
+          this.closeMovingAnimation(childEls[_i]);
+          childEls[_i].children[0].classList.remove(this.toggleClass);
+          childEls[_i].children[1].classList.remove(this.toggleClass);
+        }
       }
-    }
+    });
   }
 
   closeMovingAnimation(el) {

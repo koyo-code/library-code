@@ -1,8 +1,11 @@
 class SplitText {
-  constructor({ targets, addClass }) {
-    this.targets = document.querySelectorAll(`.${targets}`);
+  static init({ data = 'split', addClass = 'is-split' } = {}) {
+    new this({ data, addClass });
+  }
+  constructor({ data, addClass }) {
+    this.els = document.querySelectorAll(`[data-${data}]`);
     this.addClass = addClass;
-    this.targets.forEach((el) => {
+    this.els.forEach((el) => {
       this.chars = el.innerText.trim();
       this.catStr = '';
       el.innerHTML = this.splitText();
@@ -16,7 +19,4 @@ class SplitText {
     return this.catStr;
   }
 }
-new SplitText({
-  targets: 'split',
-  addClass: 'is-split',
-});
+SplitText.init();

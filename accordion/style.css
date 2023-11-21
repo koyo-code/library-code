@@ -40,4 +40,9 @@
 .accordion__answer-inner {
   margin: 20px 20px;
   line-height: 1.5;
+}
+
+hr {
+  padding: 150px 0;
+  border: none;
 }/*# sourceMappingURL=style.css.map */

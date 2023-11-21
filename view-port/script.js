@@ -1,7 +1,11 @@
 class ViewPort {
+  static init() {
+    const initObj = new this();
+    window.addEventListener('load', initObj.fixViewport.bind(initObj));
+    window.addEventListener('resize', initObj.fixViewport.bind(initObj));
+  }
   constructor() {
     this.viewport = document.querySelector('meta[name="viewport"]');
-    window.addEventListener('resize', this.fixViewport.bind(this));
   }
   fixViewport() {
     const value = window.innerWidth > 375 ? 'width=device-width,initial-scale=1' : 'width=375';
@@ -10,4 +14,5 @@ class ViewPort {
     }
   }
 }
-new ViewPort();
+
+ViewPort.init();
