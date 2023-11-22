@@ -1,245 +1,106 @@
-class Gallery {
-  constructor({ toggleClass, btns, items, more }) {
-    if (more) {
-      this.more = more;
-      this.initAppear = more.appear;
-      this.appear = more.appear;
-      this.add = more.add;
-      this.moreBtn = document.querySelector(`.${more.btn}`);
-      if (more.sp) {
-        this.totalInitAppear;
-        this.totalAppear;
-        this.totalAdd;
-        this.sp = more.sp;
-        this.break = this.sp.break;
-        this.spInitAppear = this.sp.appear;
-        this.spAppear = this.sp.appear;
-        this.spAdd = this.sp.add;
-      }
-    }
+class Category {
+  static init({
+    and = false,
+    name = 'category',
+    btn = '.category__btn',
+    content = '.category__content',
+    toggleClass = 'is-filter',
+  } = {}) {
+    new this({ and, name, btn, content, toggleClass });
+  }
+  constructor({ and, name, btn, content, toggleClass }) {
+    this.and = and;
     this.toggleClass = toggleClass;
-    this.btns = document.querySelectorAll(`.${btns}`);
-    this.item = items;
-    this.items = document.querySelectorAll(`.${this.item}`);
-    window.addEventListener('load', this.init());
-    if (this.sp) {
-      window.addEventListener('resize', this.resizeEvent.bind(this));
-    }
-    if (this.more) {
-      this.moreBtn.addEventListener('click', this.moreView.bind(this));
-    }
-    this.btns.forEach((_, index) => {
-      this.btns[index].addEventListener('click', this.search.bind(this, index));
+    this.filterEls = document.querySelectorAll(`[name=${name}]`);
+    this.btnEls = document.querySelectorAll(btn);
+    this.contentEls = document.querySelectorAll(content);
+    this.filterEls.forEach((_, i) => {
+      this.filterEls[i].addEventListener('change', this.main.bind(this, i));
     });
   }
-  total() {
-    if (window.innerWidth > this.break) {
-      this.totalInitAppear = this.initAppear;
-      this.totalAppear = this.appear;
-      this.totalAdd = this.add;
-    } else {
-      this.totalInitAppear = this.spInitAppear;
-      this.totalAppear = this.spAppear;
-      this.totalAdd = this.spAdd;
-    }
-  }
-  init() {
-    if (this.sp) {
-      this.total();
-    }
-    this.btns.forEach((btn) => {
-      const btnData = Object.keys(btn.dataset)[0];
-      const btnFilter = btn.getAttribute(`data-${btnData}`);
-      if (btnFilter === 'all') {
-        btn.classList.add(this.toggleClass);
+
+  firstDisplay() {
+    let judge = [];
+    this.filterEls.forEach((filterEl) => {
+      if (filterEl.checked) {
+        judge.push(true);
       }
     });
-    if (this.more) {
-      if (this.sp) {
-        if (this.items.length > this.totalInitAppear) {
-          this.moreBtn.classList.add(this.toggleClass);
-        }
-        for (let i = 0; i < this.totalAppear; i++) {
-          this.items[i].classList.add(this.toggleClass);
-        }
+    if (!judge.includes(true)) {
+      this.contentEls.forEach((contentEl) => {
+        contentEl.classList.remove(this.toggleClass);
+      });
+    }
+  }
+
+  btnToggle(i) {
+    if (this.filterEls[i].checked) {
+      this.btnEls[i].classList.add(this.toggleClass);
+    } else {
+      this.btnEls[i].classList.remove(this.toggleClass);
+    }
+  }
+
+  getCheckElsValue() {
+    let checkElsValue = [];
+    this.filterEls.forEach((filterEl) => {
+      if (filterEl.checked) {
+        const checkElValue = filterEl.value;
+        checkElsValue.push(checkElValue);
+      }
+    });
+    return checkElsValue;
+  }
+
+  containsAny(targetArray, checkArray) {
+    return targetArray.some((item) => checkArray.includes(item));
+  }
+
+  areArraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  filter() {
+    const checkElValues = this.getCheckElsValue();
+    this.contentEls.forEach((contentEl) => {
+      const data = contentEl.dataset.category;
+      const datas = data.split('+');
+      if (this.and) {
+        this.andFilter(contentEl, checkElValues, datas);
       } else {
-        if (this.items.length > this.initAppear) {
-          this.moreBtn.classList.add(this.toggleClass);
-        }
-        for (let i = 0; i < this.appear; i++) {
-          this.items[i].classList.add(this.toggleClass);
-        }
-      }
-    } else {
-      for (let i = 0; i < this.items.length; i++) {
-        this.items[i].classList.add(this.toggleClass);
-      }
-    }
-  }
-  resizeEvent() {
-    this.total();
-    if (this.items.length > this.totalInitAppear) {
-      this.moreBtn.classList.add(this.toggleClass);
-    }
-    for (let i = 0; i < this.totalAppear; i++) {
-      this.items[i].classList.add(this.toggleClass);
-    }
-  }
-  moreView(event) {
-    event.preventDefault();
-    if (this.sp) {
-      this.totalAppear = this.totalAppear + this.totalAdd;
-    } else {
-      this.appear = this.appear + this.add;
-    }
-    this.btns.forEach((_, i) => {
-      if (this.btns[i].classList.contains(this.toggleClass)) {
-        const btnData = Object.keys(this.btns[i].dataset)[0];
-        const btnFilter = this.btns[i].getAttribute(`data-${btnData}`);
-        if (btnFilter == 'all') {
-          if (this.sp) {
-            if (this.items.length === this.totalAppear) {
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          } else {
-            if (this.items.length === this.appear) {
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          }
-          if (this.sp) {
-            if (this.items.length >= this.totalAppear) {
-              for (let i = 0; i < this.totalAppear; i++) {
-                this.items[i].classList.add(this.toggleClass);
-              }
-            } else {
-              for (let i = 0; i < this.items.length; i++) {
-                this.items[i].classList.add(this.toggleClass);
-              }
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          } else {
-            if (this.items.length >= this.appear) {
-              for (let i = 0; i < this.appear; i++) {
-                this.items[i].classList.add(this.toggleClass);
-              }
-            } else {
-              for (let i = 0; i < this.items.length; i++) {
-                this.items[i].classList.add(this.toggleClass);
-              }
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          }
-        } else {
-          const itemsData = Object.keys(this.items[i].dataset)[0];
-          const fadeItems = document.querySelectorAll(
-            `.${this.item}[data-${itemsData}='${btnFilter}']`
-          );
-          if (this.sp) {
-            if (fadeItems.length === this.totalAppear) {
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          } else {
-            if (fadeItems.length === this.appear) {
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          }
-          if (this.sp) {
-            if (fadeItems.length >= this.totalAppear) {
-              for (let i = 0; i < this.totalAppear; i++) {
-                fadeItems[i].classList.add(this.toggleClass);
-              }
-            } else {
-              for (let i = 0; i < fadeItems.length; i++) {
-                fadeItems[i].classList.add(this.toggleClass);
-              }
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          } else {
-            if (fadeItems.length >= this.appear) {
-              for (let i = 0; i < this.appear; i++) {
-                fadeItems[i].classList.add(this.toggleClass);
-              }
-            } else {
-              for (let i = 0; i < fadeItems.length; i++) {
-                fadeItems[i].classList.add(this.toggleClass);
-              }
-              this.moreBtn.classList.remove(this.toggleClass);
-            }
-          }
-        }
+        this.orFilter(contentEl, checkElValues, datas);
       }
     });
   }
-  search(index, event) {
-    event.preventDefault();
-    if (this.sp) {
-      this.totalAppear = this.totalInitAppear;
+
+  orFilter(el, elValues, datas) {
+    if (this.containsAny(elValues, datas)) {
+      el.classList.remove(this.toggleClass);
     } else {
-      this.appear = this.initAppear;
+      el.classList.add(this.toggleClass);
     }
-    this.items.forEach((item) => {
-      item.classList.remove(this.toggleClass);
-    });
-    this.btns.forEach((btn) => {
-      btn.classList.remove(this.toggleClass);
-    });
-    this.btns[index].classList.add(this.toggleClass);
-    const btnData = Object.keys(this.btns[index].dataset)[0];
-    const btnFilter = this.btns[index].getAttribute(`data-${btnData}`);
-    if (btnFilter == 'all') {
-      this.init();
+  }
+
+  andFilter(el, elValues, datas) {
+    if (this.areArraysEqual(elValues, datas)) {
+      el.classList.remove(this.toggleClass);
     } else {
-      const itemsData = Object.keys(this.items[index].dataset)[0];
-      const fadeItems = document.querySelectorAll(
-        `.${this.item}[data-${itemsData}='${btnFilter}']`
-      );
-      if (this.more) {
-        if (this.sp) {
-          if (fadeItems.length >= this.totalInitAppear) {
-            this.moreBtn.classList.add(this.toggleClass);
-            for (let i = 0; i < this.totalInitAppear; i++) {
-              fadeItems[i].classList.add(this.toggleClass);
-            }
-          } else {
-            for (let i = 0; i < fadeItems.length; i++) {
-              fadeItems[i].classList.add(this.toggleClass);
-            }
-            this.moreBtn.classList.remove(this.toggleClass);
-          }
-        } else {
-          if (fadeItems.length >= this.initAppear) {
-            this.moreBtn.classList.add(this.toggleClass);
-            for (let i = 0; i < this.initAppear; i++) {
-              fadeItems[i].classList.add(this.toggleClass);
-            }
-          } else {
-            for (let i = 0; i < fadeItems.length; i++) {
-              fadeItems[i].classList.add(this.toggleClass);
-            }
-            this.moreBtn.classList.remove(this.toggleClass);
-          }
-        }
-      } else {
-        fadeItems.forEach((fadeItem) => {
-          fadeItem.classList.add(this.toggleClass);
-        });
-      }
+      el.classList.add(this.toggleClass);
     }
+  }
+
+  main(i) {
+    this.btnToggle(i);
+    this.filter();
+    this.firstDisplay();
   }
 }
 
-new Gallery({
-  toggleClass: 'is-active',
-  btns: 'category-area__btn-list--item',
-  items: 'category-area__detail-list--item',
-  more: {
-    appear: 6,
-    add: 6,
-    btn: 'category-area--btn',
-    sp: {
-      break: 768,
-      appear: 3,
-      add: 3,
-    },
-  },
-});
+Category.init();

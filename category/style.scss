@@ -1,72 +1,47 @@
 body {
   padding-top: 100px;
-  .category-area {
-    max-width: 1200px;
-    margin: 0 auto;
+  .category {
     width: 100%;
-    .all {
-      background: #ccc;
+    position: relative;
+    &__checks {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
     }
-    .red {
-      background: #cc0000;
-    }
-    .blue {
-      background: #0000cc;
-    }
-    .green {
-      background: #00cc00;
-    }
-    &--btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 300px;
-      height: 60px;
-      background: #000;
-      color: #fff;
-      margin: 30px auto 0;
-      display: none;
-      &.is-active {
-        display: flex;
-      }
-    }
-    &__btn-list {
+    &__btns {
       display: flex;
       justify-content: center;
       gap: 15px;
       margin-bottom: 30px;
-      &--item {
-        width: 100px;
-        height: 30px;
-        a {
-          color: #fff;
-          display: block;
-          height: 100%;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+    }
+    &__btn {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.is-filter {
+        color: #fff;
+        background: #000;
       }
     }
-    &__detail-list {
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap;
+
+    &__contents {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 15px;
-      &--item {
-        width: 390px;
-        height: 300px;
+    }
+    &__content {
+      height: 300px;
+      align-items: center;
+      background: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      &.is-filter {
         display: none;
-        &.is-active {
-          display: block;
-        }
-        a {
-          color: #fff;
-          display: block;
-          height: 100%;
-          width: 100%;
-        }
       }
     }
   }

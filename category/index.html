@@ -8,134 +8,25 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="category-area">
-      <ul class="category-area__btn-list">
-        <li class="category-area__btn-list--item all" data-filter="all"><a href="#">ALL</a></li>
-        <li class="category-area__btn-list--item red" data-filter="red"><a href="#">RED</a></li>
-        <li class="category-area__btn-list--item blue" data-filter="blue"><a href="#">BLUE</a></li>
-        <li class="category-area__btn-list--item green" data-filter="green">
-          <a href="#">GREEN</a>
-        </li>
+    <div class="category">
+      <div class="category__checks">
+        <input type="checkbox" name="category" value="cat01" id="cheak1" />
+        <input type="checkbox" name="category" value="cat02" id="cheak2" />
+        <input type="checkbox" name="category" value="cat03" id="cheak3" />
+      </div>
+      <div class="category__btns">
+        <label class="category__btn" for="cheak1">cheak1</label>
+        <label class="category__btn" for="cheak2">cheak2</label>
+        <label class="category__btn" for="cheak3">cheak3</label>
+      </div>
+      <ul class="category__contents">
+        <li class="category__content" data-category="cat01+cat02">cat01 + cat02</li>
+        <li class="category__content" data-category="cat02">cat02</li>
+        <li class="category__content" data-category="cat01">cat01</li>
+        <li class="category__content" data-category="cat03">cat03</li>
+        <li class="category__content" data-category="cat02">cat02</li>
+        <li class="category__content" data-category="cat02">cat02</li>
       </ul>
-      <ul class="category-area__detail-list">
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item blue" data-category="blue">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item blue" data-category="blue">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item blue" data-category="blue">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item blue" data-category="blue">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item green" data-category="green">
-          <a href="#">a</a>
-        </li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-        <li class="category-area__detail-list--item red" data-category="red"><a href="#">a</a></li>
-      </ul>
-      <a href="#" class="category-area--btn">もっと見る</a>
     </div>
     <script src="./script.js"></script>
   </body>
