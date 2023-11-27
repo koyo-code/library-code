@@ -60,11 +60,11 @@ class Parallax {
       let animationObj = {};
       let mm = gsap.matchMedia();
       if (this.breakpoint) {
-        mm.add('(min-width: 769px)', () => {
+        mm.add(`(min-width: ${this.breakpoint.max + 1}px)`, () => {
           animationObj = this.setPcAnimation(dataEl, data);
           gsap.to(dataEl, animationObj);
         });
-        mm.add(`(max-width: 768px)`, () => {
+        mm.add(`(max-width: ${this.breakpoint.max}px)`, () => {
           animationObj = this.setSpAnimation(dataEl, data);
           gsap.to(dataEl, animationObj);
         });
