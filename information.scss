@@ -39,11 +39,12 @@
   }
 }
 
+$breakNames: ('xl', 'lg', 'md', 'sm');
 $breakpoint: (
-  xl: 'screen and (max-width: 1280px)',
-  lg: 'screen and (max-width: 1024px)',
-  md: 'screen and (max-width: 768px)',
-  sm: 'screen and (max-width: 640px)',
+  nth($breakNames, 1): 'screen and (max-width: 1280px)',
+  nth($breakNames, 2): 'screen and (max-width: 1024px)',
+  nth($breakNames, 3): 'screen and (max-width: 768px)',
+  nth($breakNames, 4): 'screen and (max-width: 640px)',
 ) !default;
 
 @mixin break($bp: md) {
@@ -91,57 +92,59 @@ $breakpoint: (
   }
 }
 
-.pc-b {
-  display: block !important;
-  @include break {
-    display: none !important;
-  }
-}
-
-.sp-b {
-  display: none !important;
-  @include break {
+@each $breakName in $breakNames {
+  .#{$breakName}-b {
     display: block !important;
+    @include break {
+      display: none !important;
+    }
   }
-}
 
-.pc-g {
-  display: grid !important;
-  @include break {
+  .-#{$breakName}-b {
     display: none !important;
+    @include break {
+      display: block !important;
+    }
   }
-}
-.sp-g {
-  display: none !important;
-  @include break {
+
+  .#{$breakName}-g {
     display: grid !important;
+    @include break {
+      display: none !important;
+    }
   }
-}
-
-.pc-ib {
-  display: inline-block !important;
-  @include break {
+  .-#{$breakName}-g {
     display: none !important;
+    @include break {
+      display: grid !important;
+    }
   }
-}
 
-.sp-ib {
-  display: none !important;
-  @include break {
+  .#{$breakName}-ib {
     display: inline-block !important;
+    @include break {
+      display: none !important;
+    }
   }
-}
 
-.pc-f {
-  display: flex !important;
-  @include break {
+  .-#{$breakName}-ib {
     display: none !important;
+    @include break {
+      display: inline-block !important;
+    }
   }
-}
 
-.sp-f {
-  display: none !important;
-  @include break {
+  .#{$breakName}-f {
     display: flex !important;
+    @include break {
+      display: none !important;
+    }
+  }
+
+  .-#{$breakName}-f {
+    display: none !important;
+    @include break {
+      display: flex !important;
+    }
   }
 }
