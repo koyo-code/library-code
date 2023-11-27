@@ -1,0 +1,147 @@
+@charset 'utf-8';
+@use 'sass:math';
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;&display=swap';
+
+:root {
+  --noto: 'Noto Sans JP', sans-serif;
+  --yugo: '游ゴシック体', yugothic, '游ゴシック Medium', 'Yu Gothic Medium', '游ゴシック',
+    'Yu Gothic', sans-serif;
+}
+
+@function clp($min-font-size, $max-font-size, $min-view-port: 768, $max-view-port: 1500) {
+  $font-size-rate: $max-font-size - $min-font-size;
+  $view-port-rate: $max-view-port - $min-view-port;
+  $changing-size: math.div(math.round(math.div($font-size-rate, $view-port-rate) * 10000), 100);
+  $fixed-size: math.div(
+    math.round(
+      ($min-font-size - math.div($font-size-rate, $view-port-rate) * $min-view-port) * 62.5
+    ),
+    1000
+  );
+  $min-rem-font-size: math.div(math.round($min-font-size * 62.5), 1000);
+  $max-rem-font-size: math.div(math.round($max-font-size * 62.5), 1000);
+
+  @return clamp(
+    #{$min-rem-font-size}rem,
+    #{$fixed-size}rem + #{$changing-size}vw,
+    #{$max-rem-font-size}rem
+  );
+}
+
+@function pct($small, $big, $bool: true) {
+  $value: math.div($small, $big);
+  $value: $value * 100;
+
+  @if $bool {
+    @return #{$value} + '%';
+  } @else {
+    @return #{$value} + vw;
+  }
+}
+
+$breakpoint: (
+  xl: 'screen and (max-width: 1280px)',
+  lg: 'screen and (max-width: 1024px)',
+  md: 'screen and (max-width: 768px)',
+  sm: 'screen and (max-width: 640px)',
+) !default;
+
+@mixin break($bp: md) {
+  @media #{map-get($breakpoint, $bp)} {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@function lh($fz, $lf) {
+  $value: math.div($lf, $fz);
+  @return $value;
+}
+
+@function ls($tracking) {
+  $value: math.div($tracking, 1000);
+  @return #{$value}em;
+}
+
+@mixin font($fz, $lf, $ls) {
+  font-size: $fz + px;
+  line-height: lh($fz, $lf);
+  letter-spacing: ls($ls);
+}
+
+@mixin wrap($max-width: 1100) {
+  width: 90%;
+  max-width: $max-width + px;
+  margin: 0 auto;
+}
+
+// --- utilsCSS start ---
+
+.img-wrap {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.pc-b {
+  display: block !important;
+  @include break {
+    display: none !important;
+  }
+}
+
+.sp-b {
+  display: none !important;
+  @include break {
+    display: block !important;
+  }
+}
+
+.pc-g {
+  display: grid !important;
+  @include break {
+    display: none !important;
+  }
+}
+.sp-g {
+  display: none !important;
+  @include break {
+    display: grid !important;
+  }
+}
+
+.pc-ib {
+  display: inline-block !important;
+  @include break {
+    display: none !important;
+  }
+}
+
+.sp-ib {
+  display: none !important;
+  @include break {
+    display: inline-block !important;
+  }
+}
+
+.pc-f {
+  display: flex !important;
+  @include break {
+    display: none !important;
+  }
+}
+
+.sp-f {
+  display: none !important;
+  @include break {
+    display: flex !important;
+  }
+}
