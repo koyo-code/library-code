@@ -1,4 +1,4 @@
-class TextAccordion {
+class MoreText {
   static init({
     data = 'text',
     toggleClass = 'is-active',
@@ -72,4 +72,4 @@ class TextAccordion {
   }
 }
 
-TextAccordion.init();
+MoreText.init();

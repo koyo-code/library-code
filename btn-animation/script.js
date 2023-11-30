@@ -1,5 +1,5 @@
 class ButtonHover {
-  static init({ data } = {}) {
+  static init({ data = 'hover' } = {}) {
     const initObj = new this({ data });
     initObj.buttons.forEach((button) => {
       button.style.position = 'relative';
@@ -49,5 +49,15 @@ class ButtonHover {
     circleEl.style.left = relX + 'px';
   }
 }
+const isTouch = () => {
+  const touch_event = window.ontouchstart;
+  const touch_points = navigator.maxTouchPoints;
+  if (touch_event !== undefined && 0 < touch_points) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-ButtonHover.init({ data: 'hover' });
+// タッチデバイスではないならインスタンスを生成
+if (!isTouch()) ButtonHover.init();

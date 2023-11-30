@@ -30,7 +30,7 @@ class SmoothScroll {
     e.preventDefault();
     let attr = clickEl.getAttribute('href');
     let toEl;
-    if (attr === '#') {
+    if (attr === '#top') {
       toEl = document.body;
     } else {
       attr.indexOf('/') === -1
