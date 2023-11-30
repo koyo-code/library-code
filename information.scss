@@ -2,10 +2,31 @@
 @use 'sass:math';
 @import 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;&display=swap';
 
+// pc-first
+$immobile: true;
+
+// min-base
+$breakMap: (
+  xl: 1280,
+  lg: 1024,
+  md: 768,
+  sm: 640,
+  xs: 500,
+) !default;
+
 :root {
   --noto: 'Noto Sans JP', sans-serif;
   --yugo: '游ゴシック体', yugothic, '游ゴシック Medium', 'Yu Gothic Medium', '游ゴシック',
     'Yu Gothic', sans-serif;
+
+  --color-base: #000;
+  --bg-base: #fff;
+
+  --fz-xl: 20px;
+  --fz-lg: 18px;
+  --fz-md: 16px;
+  --fz-sm: 14px;
+  --fz-xs: 12px;
 }
 
 @function clp($min-font-size, $max-font-size, $min-view-port: 768, $max-view-port: 1500) {
@@ -31,24 +52,28 @@
 @function pct($small, $big, $bool: true) {
   $value: math.div($small, $big);
   $value: $value * 100;
-
   @if $bool {
     @return #{$value} + '%';
   } @else {
-    @return #{$value} + vw;
+    @return #{$value} + 'vw';
   }
 }
 
-$breakNames: ('xl', 'lg', 'md', 'sm');
-$breakpoint: (
-  nth($breakNames, 1): 'screen and (max-width: 1280px)',
-  nth($breakNames, 2): 'screen and (max-width: 1024px)',
-  nth($breakNames, 3): 'screen and (max-width: 768px)',
-  nth($breakNames, 4): 'screen and (max-width: 640px)',
-) !default;
+$minmax: min;
+@if $immobile {
+  $minmax: max;
+  @each $key, $value in $breakMap {
+    $breakMap: map-merge(
+      $breakMap,
+      (
+        $key: map-get($breakMap, $key) - 1,
+      )
+    );
+  }
+}
 
-@mixin break($bp: md) {
-  @media #{map-get($breakpoint, $bp)} {
+@mixin break($breakMapKey: md) {
+  @media screen and (#{$minmax}-width:#{map-get($breakMap, $breakMapKey)}px) {
     @content;
   }
 }
@@ -83,6 +108,10 @@ $breakpoint: (
   margin: 0 auto;
 }
 
+.inner {
+  @include wrap();
+}
+
 // --- utilsCSS start ---
 
 .img-wrap {
@@ -92,58 +121,58 @@ $breakpoint: (
   }
 }
 
-@each $breakName in $breakNames {
-  .#{$breakName}-b {
+@each $key, $value in $breakMap {
+  .#{$key}-b {
     display: block !important;
-    @include break {
+    @include break($key) {
       display: none !important;
     }
   }
 
-  .-#{$breakName}-b {
+  .-#{$key}-b {
     display: none !important;
-    @include break {
+    @include break($key) {
       display: block !important;
     }
   }
 
-  .#{$breakName}-g {
+  .#{$key}-g {
     display: grid !important;
-    @include break {
+    @include break($key) {
       display: none !important;
     }
   }
-  .-#{$breakName}-g {
+  .-#{$key}-g {
     display: none !important;
-    @include break {
+    @include break($key) {
       display: grid !important;
     }
   }
 
-  .#{$breakName}-ib {
+  .#{$key}-ib {
     display: inline-block !important;
-    @include break {
+    @include break($key) {
       display: none !important;
     }
   }
 
-  .-#{$breakName}-ib {
+  .-#{$key}-ib {
     display: none !important;
-    @include break {
+    @include break($key) {
       display: inline-block !important;
     }
   }
 
-  .#{$breakName}-f {
+  .#{$key}-f {
     display: flex !important;
-    @include break {
+    @include break($key) {
       display: none !important;
     }
   }
 
-  .-#{$breakName}-f {
+  .-#{$key}-f {
     display: none !important;
-    @include break {
+    @include break($key) {
       display: flex !important;
     }
   }

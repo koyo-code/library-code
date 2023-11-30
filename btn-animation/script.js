@@ -1,36 +1,53 @@
-class ButtonHoverEffect {
-  constructor(selectors) {
-    this.buttons = document.querySelectorAll(selectors);
-    window.addEventListener('load', this.init.bind(this));
-  }
-  init() {
-    this.buttons.forEach((button) => {
-      this.createSpan(button);
-      button.addEventListener('mouseenter', this.handleMouseEnter.bind(this, button));
-      button.addEventListener('mouseout', this.handleMouseOut.bind(this, button));
+class ButtonHover {
+  static init({ data } = {}) {
+    const initObj = new this({ data });
+    initObj.buttons.forEach((button) => {
+      button.style.position = 'relative';
+      button.style.overflow = 'hidden';
+      initObj.createSpan(button);
+      ['mouseenter', 'mouseleave'].forEach((eventName) => {
+        button.addEventListener(eventName, initObj.circleMove.bind(initObj));
+      });
     });
+  }
+
+  constructor({ data }) {
+    this.buttons = document.querySelectorAll(`[data-${data}]`);
   }
 
   createSpan(button) {
     const spanEl = document.createElement('span');
+    spanEl.style.position = 'absolute';
+    spanEl.style.borderRadius = '50%';
+    spanEl.style.top = '0px';
+    spanEl.style.left = '0px';
+    spanEl.style.height = '0px';
+    spanEl.style.width = '0px';
+    spanEl.style.zIndex = '-1';
+    spanEl.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out';
+    spanEl.style.transform = 'translate(-50%,-50%)';
     button.appendChild(spanEl);
   }
 
-  handleMouseEnter(button, e) {
-    const parentOffset = button.getBoundingClientRect();
+  circleMove(e) {
+    const type = e.type === 'mouseenter';
+    const target = e.target;
+    const parentOffset = target.getBoundingClientRect();
+    const circleEl = target.querySelector('span');
+    let diagonal = 0;
+    if (type) {
+      diagonal =
+        Math.sqrt(
+          parentOffset.width * parentOffset.width + parentOffset.height * parentOffset.height
+        ) * 2;
+    }
     const relX = e.pageX - parentOffset.left;
     const relY = e.pageY - window.scrollY - parentOffset.top;
-    button.querySelector('span').style.top = relY + 'px';
-    button.querySelector('span').style.left = relX + 'px';
-  }
-
-  handleMouseOut(button, e) {
-    const parentOffset = button.getBoundingClientRect();
-    const relX = e.pageX - parentOffset.left;
-    const relY = e.pageY - window.scrollY - parentOffset.top;
-    button.querySelector('span').style.top = relY + 'px';
-    button.querySelector('span').style.left = relX + 'px';
+    circleEl.style.height = diagonal + 'px';
+    circleEl.style.width = diagonal + 'px';
+    circleEl.style.top = relY + 'px';
+    circleEl.style.left = relX + 'px';
   }
 }
 
-new ButtonHoverEffect('.btn');
+ButtonHover.init({ data: 'hover' });

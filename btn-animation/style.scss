@@ -1,35 +1,24 @@
-.btn {
-  --width: 300px;
-  --height: 80px;
-  display: block;
+[data-hover] {
   margin-top: 50px;
   margin-left: 50px;
-  overflow: hidden;
-  width: var(--width);
-  height: var(--height);
+  width: 300px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: solid #000 1px;
-  transition: all 0.3s;
-  position: relative;
+  color: #000;
   span {
-    position: absolute;
-    display: block;
-    border-radius: 50%;
-    background-color: red;
-    height: 0;
-    width: 0;
-    top: 0;
-    z-index: -1;
-    left: 0;
-    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
-    transform: translate(-50%, -50%);
+    background-color: #ccc;
   }
-  &:hover {
+  &.red {
     span {
-      height: 700px;
-      width: 700px;
+      background: red;
+    }
+  }
+  &.blue {
+    span {
+      background: blue;
     }
   }
 }
