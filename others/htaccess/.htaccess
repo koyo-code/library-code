@@ -1,0 +1,9 @@
+<!-- リダイレクト処理 -->
+
+RedirectMatch 301 /recruit/new/contact/(.\*) https://test.com/recruit/new/
+RewriteRule ^recruit/new/interview/staff/staff01.html$ https://test.jp/recruit/new/ [R=301,L]
+
+<!-- SSI -->
+
+Options +Includes
+AddHandler server-parsed html
