@@ -52,9 +52,7 @@ class Accordion {
   }
 
   main(el) {
-    if (this.autoClose) {
-      this.closingMovement(el);
-    }
+    if (this.autoClose) this.closingMovement(el);
     this.movingAnimation(el);
     el.children[0].classList.toggle(this.toggleClass);
     el.children[1].classList.toggle(this.toggleClass);
