@@ -8,7 +8,8 @@ class Category {
     toggleClass = 'is-filter',
     errorDOM = '<p>お探しの条件では見つかりませんでした。</p>',
   } = {}) {
-    new this({ and, name, btn, content, toggleClass, wrapper, errorDOM });
+    const initObj = new this({ and, name, btn, content, toggleClass, wrapper, errorDOM });
+    return initObj;
   }
   constructor({ and, name, btn, content, toggleClass, wrapper, errorDOM }) {
     this.notFoundEl = null;
