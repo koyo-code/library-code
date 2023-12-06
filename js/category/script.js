@@ -52,7 +52,6 @@ class Category {
       }
     }
   }
-
   getCheckElsValue() {
     let checkElsValue = [];
     this.filterEls.forEach((filterEl) => {

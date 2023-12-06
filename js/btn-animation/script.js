@@ -17,15 +17,17 @@ class ButtonHover {
 
   createSpan(button) {
     const spanEl = document.createElement('span');
-    spanEl.style.position = 'absolute';
-    spanEl.style.borderRadius = '50%';
-    spanEl.style.top = '0px';
-    spanEl.style.left = '0px';
-    spanEl.style.height = '0px';
-    spanEl.style.width = '0px';
-    spanEl.style.zIndex = '-1';
-    spanEl.style.transition = 'width 0.5s ease-in-out, height 0.5s ease-in-out';
-    spanEl.style.transform = 'translate(-50%,-50%)';
+    Object.assign(spanEl.style, {
+      position: 'absolute',
+      borderRadius: '50%',
+      top: '0px',
+      left: '0px',
+      height: '0px',
+      width: '0px',
+      zIndex: -1,
+      transition: 'width 0.5s ease-in-out, height 0.5s ease-in-out',
+      transform: 'translate(-50%,-50%)',
+    });
     button.appendChild(spanEl);
   }
 
@@ -43,10 +45,13 @@ class ButtonHover {
     }
     const relX = e.pageX - parentOffset.left;
     const relY = e.pageY - window.scrollY - parentOffset.top;
-    circleEl.style.height = diagonal + 'px';
-    circleEl.style.width = diagonal + 'px';
-    circleEl.style.top = relY + 'px';
-    circleEl.style.left = relX + 'px';
+
+    Object.assign(circleEl.style, {
+      height: diagonal + 'px',
+      width: diagonal + 'px',
+      top: relY + 'px',
+      left: relX + 'px',
+    });
   }
 }
 const isTouch = () => {
