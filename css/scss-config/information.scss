@@ -14,12 +14,10 @@ $breakMap: (
   xs: 500,
 ) !default;
 
-$default-min-bp: map-get($breakMap, md) - 1;
-$default-max-bp: map-get($breakMap, xl) - 1;
 $root-font-size: 10;
 
 html {
-  font-size: 62.5%;
+  font-size: math.div($root-font-size, 16) * 100%;
 }
 
 :root {
@@ -49,6 +47,9 @@ html {
   $value: math.div($tracking, 1000);
   @return #{$value}em;
 }
+
+$default-min-bp: map-get($breakMap, md) - 1;
+$default-max-bp: map-get($breakMap, xl) - 1;
 
 @function clp($min-px, $max-px, $min-bp: $default-min-bp, $max-bp: $default-max-bp) {
   $slope: math.div($max-px - $min-px, $max-bp - $min-bp);
