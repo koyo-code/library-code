@@ -3,7 +3,7 @@
 @import 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;&display=swap';
 
 // pc-first
-$immobile: false;
+$immobile: true;
 
 // min-base
 $breakMap: (
@@ -105,7 +105,7 @@ $minmax: min;
 
 @mixin wrap($max-width: 1100) {
   width: 90%;
-  max-width: rem($max-width);
+  max-width: $max-width + px;
   margin: 0 auto;
 }
 
