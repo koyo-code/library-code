@@ -7,3 +7,12 @@ RewriteRule ^recruit/new/interview/staff/staff01.html$ https://test.jp/recruit/n
 
 Options +Includes
 AddHandler server-parsed html
+
+
+<!-- htpasswd -->
+<!-- AuthUserFile = echo __FILE__; -->
+
+AuthUserFile "/home/dir/.htpasswd"
+AuthName "Please enter your ID and Password."
+AuthType BASIC
+require valid-user
