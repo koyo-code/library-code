@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>smooth-scroll</title>
+    <link rel="stylesheet" href="../../destyle.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <a href="#top" class="pageTop">▲</a>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="#sec1">SECTION1</a>
+          </li>
+          <li>
+            <a href="#sec2">SECTION2</a>
+          </li>
+          <li>
+            <a href="/smooth-scroll/#sec3">SECTION3</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="section-wrap">
+      <section id="sec1">SECTION1</section>
+      <section id="sec2">SECTION2</section>
+      <section id="sec3">SECTION3</section>
+    </div>
+    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

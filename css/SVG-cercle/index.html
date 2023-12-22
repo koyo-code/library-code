@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG</title>
+    <link rel="stylesheet" href="../../destyle.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <svg viewBox="0 0 60 60" width="60px" height="60px" class="circle-wrapper-sp">
+      <!-- 円のstrokeがはみ出る問題  正しい半径(r) = r - (stroke-width ÷ 2) -->
+      <circle
+        cx="30px"
+        cy="30px"
+        r="27"
+        fill="#fff"
+        stroke="#000"
+        stroke-width="6"
+        class="circle-animation"
+      ></circle>
+    </svg>
+    <script src="./script.js"></script>
+  </body>
+</html>

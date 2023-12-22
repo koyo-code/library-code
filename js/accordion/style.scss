@@ -1,0 +1,50 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  &__item {
+    width: 100%;
+  }
+  &__question {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background: #ccc;
+    position: relative;
+    &::after {
+      content: '▼';
+      position: absolute;
+      top: 50%;
+      translate: 0 -50%;
+      right: 10px;
+      width: 10px;
+      height: 10px;
+      font-size: 10px;
+      transition: all 0.3s;
+    }
+    &.is-open {
+      &::after {
+        rotate: 180deg;
+      }
+    }
+  }
+  &__answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ddaeae;
+    ///必須CSS
+    overflow: hidden;
+    height: 0px;
+    ///
+    &-inner {
+      margin: 20px 20px;
+      line-height: 1.5;
+    }
+  }
+}
+hr {
+  padding: 150px 0;
+  border: none;
+}

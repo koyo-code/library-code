@@ -1,0 +1,180 @@
+@charset 'utf-8';
+@use 'sass:math';
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;&display=swap';
+
+// pc-first
+$immobile: true;
+
+// min-base
+$breakMap: (
+  xl: 1280,
+  lg: 1024,
+  md: 768,
+  sm: 640,
+  xs: 500,
+) !default;
+
+$root-font-size: 10;
+
+html {
+  font-size: math.div($root-font-size, 16) * 100%;
+}
+
+:root {
+  --noto: 'Noto Sans JP', sans-serif;
+  --yugo: '游ゴシック体', yugothic, '游ゴシック Medium', 'Yu Gothic Medium', '游ゴシック',
+    'Yu Gothic', sans-serif;
+  --color-base: #000;
+  --bg-base: #fff;
+}
+
+@function rem($px) {
+  $rem: math.div($px, $root-font-size) * 1rem;
+  @return $rem;
+}
+
+@function em($px, $self-px: $root-font-size) {
+  $em: math.div($px, $self-px) * 1em;
+  @return $em;
+}
+
+@function lh($fz, $lf) {
+  $value: math.div($lf, $fz);
+  @return $value;
+}
+
+@function ls($tracking) {
+  $value: math.div($tracking, 1000);
+  @return #{$value}em;
+}
+
+$default-min-bp: map-get($breakMap, md) - 1;
+$default-max-bp: map-get($breakMap, xl) - 1;
+
+@function clp($min-px, $max-px, $min-bp: $default-min-bp, $max-bp: $default-max-bp) {
+  $slope: math.div($max-px - $min-px, $max-bp - $min-bp);
+  $slope-vw: $slope * 100;
+  $intercept-rems: rem($min-px - $slope * $min-bp);
+  $min-rems: rem($min-px);
+  $max-rems: rem($max-px);
+  @return clamp(#{$min-rems}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rems});
+}
+
+@function pct($small, $big, $bool: true) {
+  $value: math.div($small, $big);
+  $value: $value * 100;
+  @if $bool {
+    @return #{$value} + '%';
+  } @else {
+    @return #{$value} + 'vw';
+  }
+}
+
+$minmax: min;
+@if $immobile {
+  $minmax: max;
+  @each $key, $value in $breakMap {
+    $breakMap: map-merge(
+      $breakMap,
+      (
+        $key: map-get($breakMap, $key) - 1,
+      )
+    );
+  }
+}
+
+@mixin break($breakMapKey: md) {
+  @media screen and (#{$minmax}-width:#{map-get($breakMap, $breakMapKey)}px) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin font($fz, $lf, $ls) {
+  font-size: rem($fz);
+  line-height: lh($fz, $lf);
+  letter-spacing: ls($ls);
+}
+
+@mixin wrap($max-width: 1100) {
+  width: 90%;
+  max-width: $max-width + px;
+  margin: 0 auto;
+}
+
+.inner {
+  @include wrap();
+}
+
+// --- utilsCSS start ---
+
+.img-wrap {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@each $key, $value in $breakMap {
+  .#{$key}-b {
+    display: block !important;
+    @include break($key) {
+      display: none !important;
+    }
+  }
+
+  .-#{$key}-b {
+    display: none !important;
+    @include break($key) {
+      display: block !important;
+    }
+  }
+
+  .#{$key}-g {
+    display: grid !important;
+    @include break($key) {
+      display: none !important;
+    }
+  }
+  .-#{$key}-g {
+    display: none !important;
+    @include break($key) {
+      display: grid !important;
+    }
+  }
+
+  .#{$key}-ib {
+    display: inline-block !important;
+    @include break($key) {
+      display: none !important;
+    }
+  }
+
+  .-#{$key}-ib {
+    display: none !important;
+    @include break($key) {
+      display: inline-block !important;
+    }
+  }
+
+  .#{$key}-f {
+    display: flex !important;
+    @include break($key) {
+      display: none !important;
+    }
+  }
+
+  .-#{$key}-f {
+    display: none !important;
+    @include break($key) {
+      display: flex !important;
+    }
+  }
+}

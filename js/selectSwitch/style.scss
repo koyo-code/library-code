@@ -1,0 +1,26 @@
+.target {
+  &__inner {
+    height: 500px;
+    width: 500px;
+  }
+  &__box {
+    position: relative;
+  }
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 500px;
+    width: 500px;
+    background: #ccc;
+  }
+}
+
+.selector {
+  &__inner {
+  }
+  &__box {
+  }
+  &__option {
+  }
+}
