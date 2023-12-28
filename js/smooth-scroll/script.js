@@ -27,7 +27,9 @@ class SmoothScroll {
     gsap.to(window, animationData);
   }
   anchorLink(clickEl, e) {
-    e.preventDefault();
+    if (document.querySelector(clickEl.hash)) {
+      e.preventDefault();
+    }
     let attr = clickEl.getAttribute('href');
     let toEl;
     if (attr === '#top') {
