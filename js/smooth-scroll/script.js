@@ -1,12 +1,19 @@
 gsap.registerPlugin(ScrollToPlugin);
 
 class SmoothScroll {
-  static init({ duration = 0.5, ease = 'power2,inOut', header = null, outAnchor = true } = {}) {
-    const initObj = new this({ duration, ease, header, outAnchor });
-    window.addEventListener('load', initObj.setBodyId.bind(initObj));
+  static init({
+    duration = 0.5,
+    ease = 'power2,inOut',
+    header = null,
+    outAnchor = true,
+    bodyId = 'page-top',
+  } = {}) {
+    const initObj = new this({ duration, ease, header, outAnchor, bodyId });
+    window.addEventListener('load', initObj.setBodyId.bind(initObj, bodyId));
     if (outAnchor) window.addEventListener('load', initObj.outAnchorLink.bind(initObj));
   }
-  constructor({ duration, ease, header }) {
+  constructor({ duration, ease, header, bodyId }) {
+    this.bodyId = bodyId;
     this.header = document.querySelector(header);
     this.duration = duration;
     this.ease = ease;
@@ -16,8 +23,8 @@ class SmoothScroll {
     });
   }
 
-  setBodyId() {
-    document.body.setAttribute('id', 'page-top');
+  setBodyId(bodyId) {
+    document.body.setAttribute('id', bodyId);
   }
 
   movingAnimation(toEl) {
@@ -38,7 +45,7 @@ class SmoothScroll {
     }
     let attr = clickEl.getAttribute('href');
     let toEl;
-    if (attr === '#page-top') {
+    if (attr === `#${this.bodyId}`) {
       toEl = document.body;
     } else {
       attr.indexOf('/') === -1
