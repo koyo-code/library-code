@@ -3,6 +3,7 @@ gsap.registerPlugin(ScrollToPlugin);
 class SmoothScroll {
   static init({ duration = 0.5, ease = 'power2,inOut', header = null, outAnchor = true } = {}) {
     const initObj = new this({ duration, ease, header, outAnchor });
+    window.addEventListener('load', initObj.setBodyId.bind(initObj));
     if (outAnchor) window.addEventListener('load', initObj.outAnchorLink.bind(initObj));
   }
   constructor({ duration, ease, header }) {
@@ -14,6 +15,11 @@ class SmoothScroll {
       clickEl.addEventListener('click', this.anchorLink.bind(this, clickEl));
     });
   }
+
+  setBodyId() {
+    document.body.setAttribute('id', 'page-top');
+  }
+
   movingAnimation(toEl) {
     const animationData = {
       duration: this.duration,
@@ -32,7 +38,7 @@ class SmoothScroll {
     }
     let attr = clickEl.getAttribute('href');
     let toEl;
-    if (attr === '#top') {
+    if (attr === '#page-top') {
       toEl = document.body;
     } else {
       attr.indexOf('/') === -1
