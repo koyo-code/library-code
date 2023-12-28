@@ -43,7 +43,7 @@ class SmoothScroll {
     if (document.querySelector(clickEl.hash)) {
       e.preventDefault();
     }
-    let attr = clickEl.getAttribute('href');
+    const attr = clickEl.getAttribute('href');
     let toEl;
     if (attr === `#${this.bodyId}`) {
       toEl = document.body;
